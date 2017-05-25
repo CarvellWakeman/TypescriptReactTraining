@@ -1,11 +1,8 @@
-﻿import React from 'react';
-import ReactDOM from 'react-dom';
-
-
+﻿
 window.onload = () => {
-    const el = document.getElementById('content');
+    const content = document.getElementById('content');
     const jsx = <ToDoList name="CASS Student" />;
-    ReactDOM.render(jsx, el);
+    ReactDOM.render(jsx, content);
 };
 
 
@@ -13,18 +10,31 @@ interface Props {
     name: string;
 }
 
+interface CheckItem {
+    name: string;
+    completed: boolean;
+}
+
 interface State {
-    items: string[];
+    items: CheckItem[];
     newItemName: string;
 }
 
 class ToDoList extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
 
-    state = {
-        items: ["Milk", "Eggs", "Bread"],
-        newItemName: "",
-        butt: 42
+        // Default items
+        var milk: CheckItem = { name: "Milk", completed: false }
+        var eggs: CheckItem = { name: "Eggs", completed: false }
+        var bread: CheckItem = { name: "Bread", completed: false }
+
+        this.state = {
+            items: [milk, eggs, bread],
+            newItemName: "",
+        }
     }
+
 
     onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newState = {
@@ -34,8 +44,14 @@ class ToDoList extends React.Component<Props, State> {
         this.setState(newState);
     };
 
+    onCheckChange = (e: React.ChangeEvent<HTMLInputElement>, item: CheckItem) => {
+        item.completed = e.target.checked;
+        alert(item.completed);
+    };
+
     addItem = () => {
-        const newItems = [...this.state.items, this.state.newItemName];
+        const newCheckItem = { name: this.state.newItemName, completed: false }
+        const newItems = [...this.state.items, newCheckItem];
         const newState = {
             items: newItems,
             newItemName: ""
@@ -43,8 +59,9 @@ class ToDoList extends React.Component<Props, State> {
         this.setState(newState);
     };
 
+
     render() {
-        const itemsJSX = this.state.items.map(item => <li>{item}</li>);
+        const itemsJSX = this.state.items.map(item => <li><input type="checkbox" onChange={this.onCheckChange.bind(this, item)} /> {item.name} </li> );
 
         return (
             <div>

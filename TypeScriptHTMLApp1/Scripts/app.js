@@ -12,48 +12,35 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 window.onload = function () {
-    var content = document.getElementById('content');
+    var el = document.getElementById('content');
     var jsx = React.createElement(ToDoList, { name: "CASS Student" });
-    ReactDOM.render(jsx, content);
+    ReactDOM.render(jsx, el);
 };
 var ToDoList = (function (_super) {
     __extends(ToDoList, _super);
-    function ToDoList(props) {
-        var _this = _super.call(this, props) || this;
+    function ToDoList() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.state = {
+            items: ["Milk", "Eggs", "Bread"],
+            newItemName: "",
+            butt: 42
+        };
         _this.onInputChange = function (e) {
             var newState = __assign({}, _this.state, { newItemName: e.currentTarget.value });
             _this.setState(newState);
         };
-        _this.onCheckChange = function (e, item) {
-            item.completed = e.target.checked;
-            alert(item.completed);
-        };
         _this.addItem = function () {
-            var newCheckItem = { name: _this.state.newItemName, completed: false };
-            var newItems = _this.state.items.concat([newCheckItem]);
+            var newItems = _this.state.items.concat([_this.state.newItemName]);
             var newState = {
                 items: newItems,
                 newItemName: ""
             };
             _this.setState(newState);
         };
-        // Default items
-        var milk = { name: "Milk", completed: false };
-        var eggs = { name: "Eggs", completed: false };
-        var bread = { name: "Bread", completed: false };
-        _this.state = {
-            items: [milk, eggs, bread],
-            newItemName: "",
-        };
         return _this;
     }
     ToDoList.prototype.render = function () {
-        var _this = this;
-        var itemsJSX = this.state.items.map(function (item) { return React.createElement("li", null,
-            React.createElement("input", { type: "checkbox", onChange: _this.onCheckChange.bind(_this, item) }),
-            " ",
-            item.name,
-            " "); });
+        var itemsJSX = this.state.items.map(function (item) { return React.createElement("li", null, item); });
         return (React.createElement("div", null,
             React.createElement("h3", null,
                 this.props.name,

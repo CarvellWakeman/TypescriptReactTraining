@@ -36,6 +36,7 @@
     <Content Include="Scripts\react\react.js" />
     <Content Include="Scripts\react\react.min.js" />
     <Content Include="web.config" />
+    <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.tsx" />
