@@ -4,10 +4,17 @@
   "description": "Training module for typescript and react",
   "main": "app.tsx",
   "dependencies": {
+    "@types/react": "^15.0.25",
+    "@types/react-dom": "^15.5.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/react": "^15.0.25",
+    "@types/react-dom": "^15.5.0",
+    "source-map-loader": "^0.2.1",
+    "ts-loader": "^2.1.0"
+  },
   "scripts": {
     "test": "no"
   },

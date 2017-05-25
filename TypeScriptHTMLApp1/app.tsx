@@ -13,6 +13,7 @@ interface Props {
 interface CheckItem {
     name: string;
     completed: boolean;
+    style: {};
 }
 
 interface State {
@@ -25,9 +26,9 @@ class ToDoList extends React.Component<Props, State> {
         super(props);
 
         // Default items
-        var milk: CheckItem = { name: "Milk", completed: false }
-        var eggs: CheckItem = { name: "Eggs", completed: false }
-        var bread: CheckItem = { name: "Bread", completed: false }
+        var milk: CheckItem = { name: "Milk", completed: false, style: {backgroundColor:"#FFFFFF"} };
+        var eggs: CheckItem = { name: "Eggs", completed: false, style: {backgroundColor:"#FFFFFF"} };
+        var bread: CheckItem = { name: "Bread", completed: false, style: {backgroundColor:"#FFFFFF"} };
 
         this.state = {
             items: [milk, eggs, bread],
@@ -35,7 +36,7 @@ class ToDoList extends React.Component<Props, State> {
         }
     }
 
-
+    // Textbox for adding new item
     onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newState = {
             ...this.state,
@@ -44,13 +45,24 @@ class ToDoList extends React.Component<Props, State> {
         this.setState(newState);
     };
 
-    onCheckChange = (e: React.ChangeEvent<HTMLInputElement>, item: CheckItem) => {
-        item.completed = e.target.checked;
-        alert(item.completed);
-    };
+    // Toggling checkbox items
+    toggleCompleted = (e: React.ChangeEvent<HTMLInputElement>, index: number ) => {
+        // Make a copy of the array
+        const newItems = this.state.items.slice(); 
+        // Make a copy of the item at `index` in the array
+        const newCheckItem = newItems[index]; //{ name: item.name, completed: item.completed, style: item.style }
+        // Modify the copied item to toggle the completed state and put it in the new array at `index`
+        newCheckItem.completed = e.target.checked;
+        newCheckItem.style = { backgroundColor: (newCheckItem.completed ? "#4CAF50" : "#FFFFFF") }
+        // Make a new state object with the new array on it and `setState`
+        const newState = { items: newItems, newItemName: "" };
+        this.setState(newState);
+    }
 
+
+    // Add new item
     addItem = () => {
-        const newCheckItem = { name: this.state.newItemName, completed: false }
+        const newCheckItem = { name: this.state.newItemName, completed: false, style: {backgroundColor:"#FFFFFF"} }
         const newItems = [...this.state.items, newCheckItem];
         const newState = {
             items: newItems,
@@ -60,8 +72,14 @@ class ToDoList extends React.Component<Props, State> {
     };
 
 
+    // Render the page
     render() {
-        const itemsJSX = this.state.items.map(item => <li><input type="checkbox" onChange={this.onCheckChange.bind(this, item)} /> {item.name} </li> );
+
+        var itemsJSX = this.state.items.map((item,i) =>
+            <li style={item.style} >
+                <input type="checkbox" onChange={(e) => { this.toggleCompleted(e, i); } } />
+                {item.name}
+            </li>);
 
         return (
             <div>

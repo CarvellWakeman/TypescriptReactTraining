@@ -20,16 +20,27 @@ var ToDoList = (function (_super) {
     __extends(ToDoList, _super);
     function ToDoList(props) {
         var _this = _super.call(this, props) || this;
+        // Textbox for adding new item
         _this.onInputChange = function (e) {
             var newState = __assign({}, _this.state, { newItemName: e.currentTarget.value });
             _this.setState(newState);
         };
-        _this.onCheckChange = function (e, item) {
-            item.completed = e.target.checked;
-            alert(item.completed);
+        // Toggling checkbox items
+        _this.toggleCompleted = function (e, index) {
+            // Make a copy of the array
+            var newItems = _this.state.items.slice();
+            // Make a copy of the item at `index` in the array
+            var newCheckItem = newItems[index]; //{ name: item.name, completed: item.completed, style: item.style }
+            // Modify the copied item to toggle the completed state and put it in the new array at `index`
+            newCheckItem.completed = e.target.checked;
+            newCheckItem.style = { backgroundColor: (newCheckItem.completed ? "#4CAF50" : "#FFFFFF") };
+            // Make a new state object with the new array on it and `setState`
+            var newState = { items: newItems, newItemName: "" };
+            _this.setState(newState);
         };
+        // Add new item
         _this.addItem = function () {
-            var newCheckItem = { name: _this.state.newItemName, completed: false };
+            var newCheckItem = { name: _this.state.newItemName, completed: false, style: { backgroundColor: "#FFFFFF" } };
             var newItems = _this.state.items.concat([newCheckItem]);
             var newState = {
                 items: newItems,
@@ -38,22 +49,23 @@ var ToDoList = (function (_super) {
             _this.setState(newState);
         };
         // Default items
-        var milk = { name: "Milk", completed: false };
-        var eggs = { name: "Eggs", completed: false };
-        var bread = { name: "Bread", completed: false };
+        var milk = { name: "Milk", completed: false, style: { backgroundColor: "#FFFFFF" } };
+        var eggs = { name: "Eggs", completed: false, style: { backgroundColor: "#FFFFFF" } };
+        var bread = { name: "Bread", completed: false, style: { backgroundColor: "#FFFFFF" } };
         _this.state = {
             items: [milk, eggs, bread],
             newItemName: "",
         };
         return _this;
     }
+    // Render the page
     ToDoList.prototype.render = function () {
         var _this = this;
-        var itemsJSX = this.state.items.map(function (item) { return React.createElement("li", null,
-            React.createElement("input", { type: "checkbox", onChange: _this.onCheckChange.bind(_this, item) }),
-            " ",
-            item.name,
-            " "); });
+        var itemsJSX = this.state.items.map(function (item, i) {
+            return React.createElement("li", { style: item.style },
+                React.createElement("input", { type: "checkbox", onChange: function (e) { _this.toggleCompleted(e, i); } }),
+                item.name);
+        });
         return (React.createElement("div", null,
             React.createElement("h3", null,
                 this.props.name,
