@@ -1,0 +1,24 @@
+{
+  "name": "typescriptreacttraining",
+  "version": "1.0.0",
+  "description": "Training module for typescript and react",
+  "main": "app.tsx",
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "no"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarvellWakeman/TypescriptReactTraining.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CarvellWakeman/TypescriptReactTraining/issues"
+  },
+  "homepage": "https://github.com/CarvellWakeman/TypescriptReactTraining#readme"
+}

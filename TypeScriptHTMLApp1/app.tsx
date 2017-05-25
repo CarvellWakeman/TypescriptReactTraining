@@ -1,4 +1,7 @@
-﻿
+﻿import React from 'react';
+import ReactDOM from 'react-dom';
+
+
 window.onload = () => {
     const el = document.getElementById('content');
     const jsx = <ToDoList name="CASS Student" />;

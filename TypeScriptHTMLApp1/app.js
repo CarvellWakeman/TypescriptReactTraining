@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -11,10 +12,12 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
+var react_1 = require("react");
+var react_dom_1 = require("react-dom");
 window.onload = function () {
     var el = document.getElementById('content');
-    var jsx = React.createElement(ToDoList, { name: "CASS Student" });
-    ReactDOM.render(jsx, el);
+    var jsx = react_1.default.createElement(ToDoList, { name: "CASS Student" });
+    react_dom_1.default.render(jsx, el);
 };
 var ToDoList = (function (_super) {
     __extends(ToDoList, _super);
@@ -40,15 +43,15 @@ var ToDoList = (function (_super) {
         return _this;
     }
     ToDoList.prototype.render = function () {
-        var itemsJSX = this.state.items.map(function (item) { return React.createElement("li", null, item); });
-        return (React.createElement("div", null,
-            React.createElement("h3", null,
+        var itemsJSX = this.state.items.map(function (item) { return react_1.default.createElement("li", null, item); });
+        return (react_1.default.createElement("div", null,
+            react_1.default.createElement("h3", null,
                 this.props.name,
                 "'s To-Do List"),
-            React.createElement("ul", null, itemsJSX),
-            React.createElement("input", { value: this.state.newItemName, onChange: this.onInputChange }),
-            React.createElement("button", { onClick: this.addItem }, "Add")));
+            react_1.default.createElement("ul", null, itemsJSX),
+            react_1.default.createElement("input", { value: this.state.newItemName, onChange: this.onInputChange }),
+            react_1.default.createElement("button", { onClick: this.addItem }, "Add")));
     };
     return ToDoList;
-}(React.Component));
+}(react_1.default.Component));
 //# sourceMappingURL=app.js.map
